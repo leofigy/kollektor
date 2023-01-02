@@ -10,15 +10,24 @@ import (
 
 func main() {
 	var (
+		procs     []win.Win32_Process
 		mem       []win.Win32_PhysicalMemory
 		batteries []win.Win32_Battery
 	)
 
-	query(&mem)
-	query(&batteries)
+	target_structs := []any{
+		&procs,
+		&mem,
+		&batteries,
+	}
+
+	for _, target := range target_structs {
+		query(target)
+	}
 
 	fmt.Println(mem)
 	fmt.Println(batteries)
+	fmt.Println(procs)
 }
 
 func query(data any) {
