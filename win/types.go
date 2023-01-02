@@ -7,9 +7,42 @@ type Win32_Process struct {
 }
 
 type Win32_PhysicalMemory struct {
-	Capacity uint64
-	Caption  string
-	Name     string
+	Attributes           uint32
+	BankLabel            string
+	Capacity             uint64
+	Caption              string
+	ConfiguredClockSpeed uint32
+	ConfiguredVoltage    uint32
+	CreationClassName    string
+	DataWidth            uint16
+	Description          string
+	DeviceLocator        string
+	FormFactor           uint16
+	HotSwappable         bool
+	InstallDate          time.Time
+	InterleaveDataDepth  uint16
+	InterleavePosition   uint32
+	Manufacturer         string
+	MaxVoltage           uint32
+	MemoryType           uint16
+	MinVoltage           uint32
+	Model                string
+	Name                 string
+	OtherIdentifyingInfo string
+	PartNumber           string
+	PositionInRow        uint32
+	PoweredOn            bool
+	Removable            bool
+	Replaceable          bool
+	SerialNumber         string
+	SKU                  string
+	SMBIOSMemoryType     uint32
+	Speed                uint32
+	Status               string
+	Tag                  string
+	TotalWidth           uint16
+	TypeDetail           uint16
+	Version              string
 }
 
 type Win32_Battery struct {
