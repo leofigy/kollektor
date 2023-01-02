@@ -9,13 +9,22 @@ import (
 )
 
 func main() {
-	var dst []win.Win32_Battery
-	q := wmi.CreateQuery(&dst, "")
-	err := wmi.Query(q, &dst)
+	var (
+		mem       []win.Win32_PhysicalMemory
+		batteries []win.Win32_Battery
+	)
+
+	query(&mem)
+	query(&batteries)
+
+	fmt.Println(mem)
+	fmt.Println(batteries)
+}
+
+func query(data any) {
+	q := wmi.CreateQuery(data, "")
+	err := wmi.Query(q, data)
 	if err != nil {
 		log.Fatal(err)
-	}
-	for _, v := range dst {
-		fmt.Printf("outcome %+v", v)
 	}
 }
