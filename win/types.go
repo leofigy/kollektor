@@ -125,3 +125,11 @@ type Win32_Battery struct {
 	TimeOnBattery               uint32
 	TimeToFullCharge            uint32
 }
+
+type CIM_OperatingSystem struct {
+	Version            string
+	FreePhysicalMemory uint64
+	Name               string
+	OSType             uint16
+	Status             string
+}

@@ -22,17 +22,29 @@ func main() {
 	}
 
 	for _, target := range target_structs {
-		query(target)
+		query(target, "")
 	}
 
+	// special query namespace
+	system := []win.CIM_OperatingSystem{}
+
+	query(&system, "root\\cimv2")
 	fmt.Println(mem)
 	fmt.Println(batteries)
 	fmt.Println(procs)
+	fmt.Println(system)
 }
 
-func query(data any) {
+func query(data any, path string) {
 	q := wmi.CreateQuery(data, "")
-	err := wmi.Query(q, data)
+
+	var err error
+	if len(path) > 0 {
+		fmt.Println(q)
+		err = wmi.QueryNamespace(q, data, path)
+	} else {
+		err = wmi.Query(q, data)
+	}
 	if err != nil {
 		log.Fatal(err)
 	}
