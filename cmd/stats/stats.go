@@ -16,8 +16,8 @@ func main() {
 		log.Panic(err)
 	}
 
-	fmt.Println(
-		stats,
-	)
+	fmt.Println(stats.System)
+	fmt.Println(stats.OS)
+	fmt.Println(stats.Memory)
 
 }

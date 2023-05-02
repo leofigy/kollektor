@@ -127,9 +127,10 @@ type Win32_Battery struct {
 }
 
 type CIM_OperatingSystem struct {
-	Version            string
-	FreePhysicalMemory uint64
-	Name               string
-	OSType             uint16
-	Status             string
+	Version                string
+	FreePhysicalMemory     uint64
+	TotalVisibleMemorySize uint64
+	Name                   string
+	OSType                 uint16
+	Status                 string
 }

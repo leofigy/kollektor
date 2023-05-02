@@ -2,6 +2,7 @@ package win
 
 import (
 	"fmt"
+	"runtime"
 
 	"github.com/yusufpapurcu/wmi"
 )
@@ -11,11 +12,11 @@ type Stats struct {
 	CPU     int    `json:"cpu"`
 	Memory  int64  `json:"memory"`
 	Storage int64  `json:"storage"`
-	Arch    string `json:"arch"`
+	OS      string `json:"arch"`
 	// internals
 	Procs     []Win32_Process
 	Mem       []Win32_PhysicalMemory
-	System    []CIM_OperatingSystem
+	System    CIM_OperatingSystem
 	batteries []Win32_Battery
 }
 
@@ -45,8 +46,14 @@ func (s *Stats) Refresh() error {
 
 	system := []CIM_OperatingSystem{}
 
+	s.CPU = runtime.NumCPU()
+
 	err := query(&system, "root\\cimv2")
-	s.System = system
+	if len(system) > 0 {
+		s.System = system[0]
+		s.Memory = int64(s.System.TotalVisibleMemorySize)
+		s.OS = s.System.Name
+	}
 	return err
 }
 
