@@ -134,3 +134,19 @@ type CIM_OperatingSystem struct {
 	OSType                 uint16
 	Status                 string
 }
+
+type Win32_LogicalDisk struct {
+	Caption            string
+	Description        string
+	DeviceID           string
+	DriveType          uint32
+	FileSystem         string
+	FreeSpace          uint64
+	Name               string
+	Size               uint64
+	Status             string
+	SystemName         string
+	VolumeDirty        bool
+	VolumeName         string
+	VolumeSerialNumber string
+}

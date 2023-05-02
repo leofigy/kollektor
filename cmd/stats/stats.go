@@ -19,5 +19,6 @@ func main() {
 	fmt.Println(stats.System)
 	fmt.Println(stats.OS)
 	fmt.Println(stats.Memory)
+	fmt.Println(stats.Disks)
 
 }

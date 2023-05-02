@@ -18,6 +18,7 @@ type Stats struct {
 	Mem       []Win32_PhysicalMemory
 	System    CIM_OperatingSystem
 	batteries []Win32_Battery
+	Disks     []Win32_LogicalDisk
 }
 
 func (s *Stats) Refresh() error {
@@ -26,12 +27,14 @@ func (s *Stats) Refresh() error {
 		procs     []Win32_Process
 		mem       []Win32_PhysicalMemory
 		batteries []Win32_Battery
+		storage   []Win32_LogicalDisk
 	)
 
 	target_structs := []any{
 		&procs,
 		&mem,
 		&batteries,
+		&storage,
 	}
 
 	for _, target := range target_structs {
@@ -43,6 +46,7 @@ func (s *Stats) Refresh() error {
 	s.Procs = procs
 	s.Mem = mem
 	s.batteries = batteries
+	s.Disks = storage
 
 	system := []CIM_OperatingSystem{}
 
@@ -54,6 +58,19 @@ func (s *Stats) Refresh() error {
 		s.Memory = int64(s.System.TotalVisibleMemorySize)
 		s.OS = s.System.Name
 	}
+
+	if len(storage) > 0 {
+		for _, disk := range storage {
+			s.Storage += int64(disk.Size)
+		}
+	}
+
+	if len(mem) > 0 {
+		for _, ram := range mem {
+			s.Memory += int64(ram.Capacity)
+		}
+	}
+
 	return err
 }
 
